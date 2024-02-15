@@ -1,4 +1,7 @@
+import { ToDoListPage } from "../support/pages/todoListPage";
+
 describe('Actividad complementaria 7', () => { 
+    const todoListPage = new ToDoListPage();
     
      beforeEach("Actividad complementaria 7", () => {
         cy.visit('');
@@ -8,19 +11,17 @@ describe('Actividad complementaria 7', () => {
         cy.get('#submitForm').click()
         cy.xpath(`//h2[starts-with(@id,'user_pushingit')]`).should('exist')
         cy.contains('To Do List').click()
+        cy.get('[data-cy="removeAll"]').should('be.visible').click();
+        cy.get('li', {timeout: 10000}).should('not.exist');
     })
 
   	it("Deberia sacar una foto completa", () =>{
-        //agregar 3 tareas y sacar una foto a la pantalla completa
+        todoListPage.agregarSetTareas();
+        cy.screenshot({capture:"fullPage"});
 	})
   
     it("Deberia sacar una foto a las tres tareas", () =>{
-        //agregar 3 tareas y sacar una foto a las tareas (las 3 tareas en la misma foto - cuadro celeste)
-	})
+        todoListPage.agregarSetTareas();
+        cy.xpath("/html/body/div[1]/div/div[2]/ul/div").screenshot("");
+    })
  })
- 
-// Instalar git
-// Inicializa un repositorio en github desde visual studio code
-// Subi el repositorio completo. Recorda usar .gitignore para ignorar la carpeta node modules
-// recorda usar los comandos git add (o usa visual studio code para elegir los archivos) // git commit -m "mensaje" // git push origin {nombre de tu branch}
-// SI es la primera vez que usas git te va a pedir que pongas las credenciales y autorices github en el navegador

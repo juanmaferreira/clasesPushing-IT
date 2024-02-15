@@ -16,4 +16,23 @@ export class ToDoListPage {
     verificarRemoveAll() {
         cy.get('[data-cy="removeAll"]').should("have.text", "Remove all");
     }
+
+    agregarSetTareas() {
+
+        cy.get('#task').type('Lavar la ropa');
+        cy.get('#sendTask').click();
+        cy.contains('li', "Lavar la ropa", { timeout: 15000 });
+        cy.get('li').should('have.length', 1);
+
+        cy.get('#task').type('Cocinar');
+        cy.get('#sendTask').click();
+        cy.contains('li', "Cocinar", { timeout: 15000 });
+        cy.get('li').should('have.length', 2);
+
+        cy.get('#task').type('Ir al GYM');
+        cy.get('#sendTask').click();
+        cy.contains('li', "Ir al GYM", { timeout: 15000 });
+
+        cy.get('li').should('have.length', 3);
+    }
 };
